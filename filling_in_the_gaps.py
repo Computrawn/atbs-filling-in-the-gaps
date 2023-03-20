@@ -23,7 +23,7 @@ def filling_in_the_gaps():
     for idx, f_match in enumerate(match_object):
         joined_file = "".join(f_match)
         old_path = f"{os.path.join(dir_path, joined_file)}"
-        renamed_file = f"{f_match[0]}00{idx + 1}{f_match[2]}"
+        renamed_file = f"{f_match[0]}{(idx + 1):03}{f_match[2]}"
         new_path = f"{os.path.join(dir_path, renamed_file)}"
         shutil.move(old_path, new_path)
 
