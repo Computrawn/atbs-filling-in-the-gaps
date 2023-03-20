@@ -2,5 +2,6 @@
 .project
 *.pyc
 .idea
+.txt
 venv
 spam
