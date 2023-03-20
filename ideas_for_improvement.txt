@@ -1,0 +1,3 @@
+Problems for future me:
+* Make into a class (seems like a good candidate).
+* Allow user to desigante file path and regular expression search parameters.
