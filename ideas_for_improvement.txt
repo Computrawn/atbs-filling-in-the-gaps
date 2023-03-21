@@ -1,3 +1,4 @@
 Problems for future me:
+* Instead of starting from 001, start from lowest number and change sequencing from there.
 * Make into a class (seems like a good candidate).
-* Allow user to desigante file path and regular expression search parameters.
+* Allow user to designate file path and regular expression search parameters.
