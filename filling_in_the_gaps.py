@@ -21,16 +21,16 @@ def filling_in_the_gaps():
     dir_path = Path(os.getcwd(), "spam")
     filename_regex = re.compile(r"(spam)(\d{3})(\.txt)")
 
-    file_list = [f_name for f_name in os.listdir(dir_path)]
+    file_list = [file_name for file_name in os.listdir(dir_path)]
 
     list.sort(file_list)
     file_str = ", ".join(file_list)
     match_object = filename_regex.findall(file_str)
 
-    for idx, f_match in enumerate(match_object):
-        joined_file = "".join(f_match)
+    for index, match in enumerate(match_object):
+        joined_file = "".join(match)
         old_path = f"{os.path.join(dir_path, joined_file)}"
-        renamed_file = f"{f_match[0]}{(idx + 1):03}{f_match[2]}"
+        renamed_file = f"{match[0]}{(index + 1):03}{match[2]}"
         new_path = f"{os.path.join(dir_path, renamed_file)}"
         shutil.move(old_path, new_path)
 
