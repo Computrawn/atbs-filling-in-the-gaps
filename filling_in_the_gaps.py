@@ -1,11 +1,19 @@
-#! python3
-"""filling_in_the_gaps — An exercise in organizing files.
-For more information, see project_details.txt."""
+#!/usr/bin/env python3
+# filling_in_the_gaps.py — An exercise in organizing files.
+# For more information, see README.md
 
+import logging
 from pathlib import Path
 import os
 import re
 import shutil
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    filename="logging.txt",
+    format="%(asctime)s -  %(levelname)s -  %(message)s",
+)
+logging.disable(logging.CRITICAL)  # Note out to enable logging.
 
 
 def filling_in_the_gaps():
@@ -13,8 +21,7 @@ def filling_in_the_gaps():
     dir_path = Path(os.getcwd(), "spam")
     filename_regex = re.compile(r"(spam)(\d{3})(\.txt)")
 
-    for f_name in os.listdir(dir_path):
-        file_list.append(f_name)
+    file_list = [f_name for f_name in os.listdir(dir_path)]
 
     list.sort(file_list)
     file_str = ", ".join(file_list)
@@ -28,5 +35,9 @@ def filling_in_the_gaps():
         shutil.move(old_path, new_path)
 
 
-file_list = []
-filling_in_the_gaps()
+def main():
+    filling_in_the_gaps()
+
+
+if __name__ == "__main__":
+    main()
