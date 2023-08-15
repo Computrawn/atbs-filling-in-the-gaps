@@ -23,13 +23,16 @@ class Match:
     extension: str
 
 
-def match_files(details: Match) -> list[Path]:
+def find_matches(details: Match) -> list[Path]:
     """Search directory for matching filenames and extensions, then return sorted list."""
 
-    dir_path = Path.cwd() / details.directory
-    file_list = list(dir_path.glob(f"{details.prefix}*.{details.extension}"))
-    return sorted(file_list)
+    path = Path.cwd() / details.directory
+    matches = list(path.glob(f"{details.prefix}*.{details.extension}"))
+    return sorted(matches)
 
+
+def fill_gaps(matches):
+    print(matches[0].name)
     # for index, match in enumerate(match_object):
     #     joined_file = "".join(match)
     #     old_path = f"{os.path.join(dir_path, joined_file)}"
@@ -39,9 +42,9 @@ def match_files(details: Match) -> list[Path]:
 
 
 def main():
-    details = Match(directory="spam", prefix="spam", extension="txt")
-    matches = match_files(details)
-    print(matches)
+    m1 = Match(directory="spam", prefix="spam", extension="txt")
+    matches = find_matches(m1)
+    fill_gaps(matches)
 
 
 if __name__ == "__main__":
