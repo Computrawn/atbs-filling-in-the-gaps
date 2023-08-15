@@ -15,16 +15,16 @@ logging.basicConfig(
 
 
 @dataclass
-class Match:
+class FileInfo:
     directory: str
     prefix: str
     extension: str
 
 
-def find_matches(details: Match) -> list[Path]:
+def find_matches(info: FileInfo) -> list[Path]:
     """Search subdirectory in cwd for matching filenames and extensions, and return sorted list."""
-    path = Path.cwd() / details.directory
-    matches = list(path.glob(f"{details.prefix}*.{details.extension}"))
+    path = Path.cwd() / info.directory
+    matches = list(path.glob(f"{info.prefix}*.{info.extension}"))
     return sorted(matches)
 
 
@@ -37,20 +37,20 @@ def reorder_sequence(matches: list[Path]) -> list[str]:
     return new_sequence
 
 
-def fill_gaps(details: Match, matches: list[Path], sequence: list[str]) -> None:
+def fill_gaps(info: FileInfo, matches: list[Path], sequence: list[str]) -> None:
     """Iterate over matches list items and rename files sequentially."""
     for index, match in enumerate(matches):
         match.rename(
-            f"{details.directory}/{details.prefix}{sequence[index]}.{details.extension}"
+            f"{info.directory}/{info.prefix}{sequence[index]}.{info.extension}"
         )
 
 
 def main() -> None:
     """Main sequence."""
-    details_1: Match = Match(directory="spam", prefix="spam", extension="txt")
-    matches: list[Path] = find_matches(details_1)
+    info_1: FileInfo = FileInfo(directory="spam", prefix="spam", extension="txt")
+    matches: list[Path] = find_matches(info_1)
     sequence: list[str] = reorder_sequence(matches)
-    fill_gaps(details_1, matches, sequence)
+    fill_gaps(info_1, matches, sequence)
 
 
 if __name__ == "__main__":
