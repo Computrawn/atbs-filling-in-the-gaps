@@ -38,7 +38,7 @@ def reorder_sequence(matches: list[Path]) -> list[str]:
 
 
 def fill_gaps(details: Match, matches: list[Path], sequence: list[str]) -> None:
-    """Iterate over matches list items and rename files sequentailly."""
+    """Iterate over matches list items and rename files sequentially."""
     for index, match in enumerate(matches):
         match.rename(
             f"{details.directory}/{details.prefix}{sequence[index]}.{details.extension}"
