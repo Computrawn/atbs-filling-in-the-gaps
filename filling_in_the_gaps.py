@@ -28,7 +28,7 @@ def find_matches(details: Match) -> list[Path]:
     return sorted(matches)
 
 
-def reorder_sequence(matches):
+def reorder_sequence(matches: list[Path]) -> list[str]:
     """Slice number info from first item in matches and create list of sequential values."""
     first_item = str(matches[0])[-7:-4]
     new_sequence = [
@@ -47,9 +47,9 @@ def fill_gaps(details: Match, matches: list[Path], sequence: list[str]) -> None:
 
 def main() -> None:
     """Main sequence."""
-    details_1 = Match(directory="spam", prefix="spam", extension="txt")
-    matches = find_matches(details_1)
-    sequence = reorder_sequence(matches)
+    details_1: Match = Match(directory="spam", prefix="spam", extension="txt")
+    matches: list[Path] = find_matches(details_1)
+    sequence: list[str] = reorder_sequence(matches)
     fill_gaps(details_1, matches, sequence)
 
 
