@@ -17,13 +17,13 @@ logging.disable(logging.CRITICAL)  # Note out to enable logging.
 
 
 @dataclass
-class SearchObject:
+class Match:
     directory: str
     prefix: str
     extension: str
 
 
-def match_files(details: SearchObject) -> list[Path]:
+def match_files(details: Match) -> list[Path]:
     """Search directory for matching filenames and extensions, then return sorted list."""
 
     dir_path = Path.cwd() / details.directory
@@ -39,7 +39,7 @@ def match_files(details: SearchObject) -> list[Path]:
 
 
 def main():
-    details = SearchObject(directory="spam", prefix="spam", extension="txt")
+    details = Match(directory="spam", prefix="spam", extension="txt")
     matches = match_files(details)
     print(matches)
 
