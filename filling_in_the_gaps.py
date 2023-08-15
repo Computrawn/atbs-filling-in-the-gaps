@@ -16,13 +16,11 @@ logging.basicConfig(
 logging.disable(logging.CRITICAL)  # Note out to enable logging.
 
 
-def match_files() -> list[str]:
+def match_files(directory: str, prefix: str, extension: str) -> list[str]:
     """Search through filenames in specific folder and remove numeric gaps."""
-    user_directory = input("Type name of directory: ")
-    user_prefix = input("Please type prefix to match: ")
-    user_extension = input("Please type extension to match: ")
-    dir_path = Path.cwd() / user_directory
-    file_list = list(dir_path.glob(f"{user_prefix}*.{user_extension}"))
+
+    dir_path = Path.cwd() / directory
+    file_list = list(dir_path.glob(f"{prefix}*.{extension}"))
     return sorted(file_list)
 
     # for index, match in enumerate(match_object):
@@ -34,7 +32,10 @@ def match_files() -> list[str]:
 
 
 def main():
-    matches = match_files()
+    directory = input("Type name of directory: ")
+    prefix = input("Please type prefix to match: ")
+    extension = input("Please type extension to match: ")
+    matches = match_files(directory, prefix, extension)
     for match in matches:
         print(match)
 
