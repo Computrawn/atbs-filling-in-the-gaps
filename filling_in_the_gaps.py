@@ -23,7 +23,6 @@ class Match:
 
 def find_matches(details: Match) -> list[Path]:
     """Search subdirectory in cwd for matching filenames and extensions, then return sorted list."""
-
     path = Path.cwd() / details.directory
     matches = list(path.glob(f"{details.prefix}*.{details.extension}"))
     return sorted(matches)
