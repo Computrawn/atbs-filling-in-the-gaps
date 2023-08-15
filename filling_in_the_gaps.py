@@ -2,8 +2,9 @@
 # filling_in_the_gaps.py — An exercise in organizing files.
 # For more information, see README.md
 
-import logging
 from pathlib import Path
+from dataclasses import dataclass
+import logging
 import os
 import re
 import shutil
@@ -16,11 +17,18 @@ logging.basicConfig(
 logging.disable(logging.CRITICAL)  # Note out to enable logging.
 
 
-def match_files(directory: str, prefix: str, extension: str) -> list[str]:
-    """Search through filenames in specific folder and remove numeric gaps."""
+@dataclass
+class SearchObject:
+    directory: str
+    prefix: str
+    extension: str
 
-    dir_path = Path.cwd() / directory
-    file_list = list(dir_path.glob(f"{prefix}*.{extension}"))
+
+def match_files(details: SearchObject) -> list[Path]:
+    """Search directory for matching filenames and extensions, then return sorted list."""
+
+    dir_path = Path.cwd() / details.directory
+    file_list = list(dir_path.glob(f"{details.prefix}*.{details.extension}"))
     return sorted(file_list)
 
     # for index, match in enumerate(match_object):
@@ -32,12 +40,9 @@ def match_files(directory: str, prefix: str, extension: str) -> list[str]:
 
 
 def main():
-    directory = input("Type name of directory: ")
-    prefix = input("Please type prefix to match: ")
-    extension = input("Please type extension to match: ")
-    matches = match_files(directory, prefix, extension)
-    for match in matches:
-        print(match)
+    details = SearchObject(directory="spam", prefix="spam", extension="txt")
+    matches = match_files(details)
+    print(matches)
 
 
 if __name__ == "__main__":
