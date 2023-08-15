@@ -28,7 +28,7 @@ def find_matches(details: Match) -> list[Path]:
     return sorted(matches)
 
 
-def fill_gaps(details, matches):
+def fill_gaps(details: Match, matches: list[Path]) -> None:
     """Rename files beginning at index of 1."""
     for index, match in enumerate(matches):
         match.rename(
@@ -36,7 +36,8 @@ def fill_gaps(details, matches):
         )
 
 
-def main():
+def main() -> None:
+    """Main sequence."""
     details_1 = Match(directory="spam", prefix="spam", extension="txt")
     matches = find_matches(details_1)
     fill_gaps(details_1, matches)
