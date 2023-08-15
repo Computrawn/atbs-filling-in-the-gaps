@@ -5,8 +5,6 @@
 from pathlib import Path
 from dataclasses import dataclass
 import logging
-import os
-import shutil
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -24,27 +22,25 @@ class Match:
 
 
 def find_matches(details: Match) -> list[Path]:
-    """Search directory for matching filenames and extensions, then return sorted list."""
+    """Search subdirectory in cwd for matching filenames and extensions, then return sorted list."""
 
     path = Path.cwd() / details.directory
     matches = list(path.glob(f"{details.prefix}*.{details.extension}"))
     return sorted(matches)
 
 
-def fill_gaps(matches):
-    print(matches[0].name)
-    # for index, match in enumerate(match_object):
-    #     joined_file = "".join(match)
-    #     old_path = f"{os.path.join(dir_path, joined_file)}"
-    #     renamed_file = f"{match[0]}{(index + 1):03}{match[2]}"
-    #     new_path = f"{os.path.join(dir_path, renamed_file)}"
-    #     shutil.move(old_path, new_path)
+def fill_gaps(details, matches):
+    """Rename files beginning at index of 1."""
+    for index, match in enumerate(matches):
+        match.rename(
+            f"{details.directory}/{details.prefix}{(index + 1):03}.{details.extension}"
+        )
 
 
 def main():
-    m1 = Match(directory="spam", prefix="spam", extension="txt")
-    matches = find_matches(m1)
-    fill_gaps(matches)
+    details_1 = Match(directory="spam", prefix="spam", extension="txt")
+    matches = find_matches(details_1)
+    fill_gaps(details_1, matches)
 
 
 if __name__ == "__main__":
