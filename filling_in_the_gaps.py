@@ -6,7 +6,6 @@ from pathlib import Path
 from dataclasses import dataclass
 import logging
 import os
-import re
 import shutil
 
 logging.basicConfig(
