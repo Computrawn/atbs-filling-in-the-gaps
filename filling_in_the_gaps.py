@@ -16,27 +16,27 @@ logging.basicConfig(
 logging.disable(logging.CRITICAL)  # Note out to enable logging.
 
 
-def filling_in_the_gaps():
+def match_files() -> list[str]:
     """Search through filenames in specific folder and remove numeric gaps."""
-    dir_path = Path(os.getcwd(), "spam")
-    filename_regex = re.compile(r"(spam)(\d{3})(\.txt)")
+    user_directory = input("Type name of directory: ")
+    user_prefix = input("Please type prefix to match: ")
+    user_extension = input("Please type extension to match: ")
+    dir_path = Path.cwd() / user_directory
+    file_list = list(dir_path.glob(f"{user_prefix}*.{user_extension}"))
+    return sorted(file_list)
 
-    file_list = [file_name for file_name in os.listdir(dir_path)]
-
-    list.sort(file_list)
-    file_str = ", ".join(file_list)
-    match_object = filename_regex.findall(file_str)
-
-    for index, match in enumerate(match_object):
-        joined_file = "".join(match)
-        old_path = f"{os.path.join(dir_path, joined_file)}"
-        renamed_file = f"{match[0]}{(index + 1):03}{match[2]}"
-        new_path = f"{os.path.join(dir_path, renamed_file)}"
-        shutil.move(old_path, new_path)
+    # for index, match in enumerate(match_object):
+    #     joined_file = "".join(match)
+    #     old_path = f"{os.path.join(dir_path, joined_file)}"
+    #     renamed_file = f"{match[0]}{(index + 1):03}{match[2]}"
+    #     new_path = f"{os.path.join(dir_path, renamed_file)}"
+    #     shutil.move(old_path, new_path)
 
 
 def main():
-    filling_in_the_gaps()
+    matches = match_files()
+    for match in matches:
+        print(match)
 
 
 if __name__ == "__main__":
